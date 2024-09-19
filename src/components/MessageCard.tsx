@@ -58,7 +58,7 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   };
 
   return (
-    <Card className="w-[450px] bg-[#EEEDFF]">
+    <Card className="lg:w-[450px] bg-[#EEEDFF] w-[250px]">
       <CardHeader>
         <div className="flex justify-between items-center">
         <CardTitle >{message.content}</CardTitle>

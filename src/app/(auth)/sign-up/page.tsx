@@ -54,7 +54,7 @@ export default function SignUpForm() {
           const response = await axios.get(
             `/api/check-username-unique?username=${username}`
           );
-          console.log("response is", response);
+          
           let message = response.data.message;
           setUsernameMessage(message);
         } catch (error) {
@@ -72,7 +72,7 @@ export default function SignUpForm() {
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
-    console.log("data from onSubmit is", data);
+    // console.log("data from onSubmit is", data);
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
       toast({
@@ -81,9 +81,9 @@ export default function SignUpForm() {
       });
       router.replace(`/verify/${username}`);
     } catch (error) {
-      console.log("error from sign up is", error);
+      
       const AxiosError = error as AxiosError<ApiResponse>;
-      console.log("AxiosError inside signup is", AxiosError);       // AxiosError inside signup is Error: Request failed with status code 500
+      // console.log("AxiosError inside signup is", AxiosError);       // AxiosError inside signup is Error: Request failed with status code 500
       let errorMessage =
         AxiosError.response?.data.message || "Error signing up";
       toast({

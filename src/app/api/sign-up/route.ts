@@ -9,8 +9,6 @@ import UserModel from '@/model/User';
 
 export async function POST(request: Request){
     await dbConnect();
-    console.log("request",request);
-    console.log("inside post route of sign up");
     try{
         const {username,email, password} = await request.json(); 
 

@@ -38,7 +38,7 @@ export default function SignInForm() {
         identifier: data.identifier,
         password: data.password,
     })
-    console.log("result from signIn api", result);
+    // console.log("result from signIn api", result);
     if(result?.error){
         toast({
             title: "Login failed",

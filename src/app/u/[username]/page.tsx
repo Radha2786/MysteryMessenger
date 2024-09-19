@@ -12,6 +12,8 @@ import { CardHeader, CardContent, Card } from '@/components/ui/card';
 import { usePathname } from "next/navigation";
 
 export default function SendMessage() {
+
+  
   const [sending, setIsSending] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const[message, setMessage]= useState<string>();
@@ -43,42 +45,67 @@ export default function SendMessage() {
   const handleSendMessage = async ()=>{
     setIsLoading(true);
     setIsSending(true);
-    try{
-    const res = await axios.get<ApiResponse>('/api/accept-messages');
-     if(res.data.isAcceptingMessages === true){
-      const response = await axios.post<ApiResponse>('/api/send-message',{
-        username : username,
-        content : message
-      });
-      console.log("response in sending msg is", response);
-      toast({
-        title: "success",
-        description: response.data.message,
-        variant: "default",
-      });
-     }else{
-      toast({
-        title: "Not accepting messages",
-        description: "user is not accepting messages",
-        variant: "destructive",
-      });
-     }
-  }catch (error) {
-      const axiosError = error as AxiosError<ApiResponse>;
-      console.log("AxiosError while sending message is", axiosError);
-      let errorMessage =
-        axiosError.response?.data.message || "Error sending msg";
-      toast({
-        title: "Error sending message",
-        description: errorMessage,
-        variant: "destructive",
-      });
-    }
-    finally {
-      setIsSending(false);
-      setIsLoading(false);
-    }
+  //   try{
+  //   const res = await axios.get<ApiResponse>('/api/accept-messages');
+  //   console.log("response in accept messages is", res);
+  //    if(res.data.isAcceptingMessages === true){
+  //     const response = await axios.post<ApiResponse>('/api/send-message',{
+  //       username : username,
+  //       content : message
+  //     });
+  //     console.log("response in sending msg is", response);
+  //     toast({
+  //       title: "success",
+  //       description: response.data.message,
+  //       variant: "default",
+  //     });
+  //    }else{
+  //     toast({
+  //       title: "Not accepting messages",
+  //       description: "user is not accepting messages",
+  //       variant: "destructive",
+  //     });
+  //    }
+  // }catch (error) {
+  //     const axiosError = error as AxiosError<ApiResponse>;
+  //     console.log("AxiosError while sending message is", axiosError);
+  //     let errorMessage =
+  //       axiosError.response?.data.message || "Error sending msg";
+  //     toast({
+  //       title: "Error sending message",
+  //       description: errorMessage,
+  //       variant: "destructive",
+  //     });
+  //   }
+  //   finally {
+  //     setIsSending(false);
+  //     setIsLoading(false);
+  //   }
+
+  try{
+    const response = await axios.post<ApiResponse>('/api/send-message',{
+      username : username,
+      content : message
+    })
+    toast({
+      title: response.data.message,
+      description: 'Message sent successfully',
+      variant: 'default',
+    });
+  }catch(error){
+    console.log("error in sending message is", error);
+    const axiosError = error as AxiosError<ApiResponse>;
+    let errorMessage = axiosError.response?.data.message || "User Not accepting messages";
+    toast({
+    title: "Error",
+    description: errorMessage,
+    variant: "destructive",
+  });
+  }finally{
+    setIsSending(false);
+    setIsLoading(false);
   }
+}
 
   const fetchSuggestMessages = async ()=>{
     try{
@@ -89,13 +116,12 @@ export default function SendMessage() {
   }
 
   const handleMessageClick = (msg: string) =>{
-    console.log("message clicked is", msg);
     setMessage(msg);
   }
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4 text-center">
+    <div className="my-8 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl border mx-auto">
+      <h1 className="text-4xl font-bold mb-4 text-center sm:px-8 md:px-8 lg:px-10">
         Public Profile Link
       </h1>
 
@@ -137,7 +163,7 @@ export default function SendMessage() {
         </h2>{" "}
       </div>
       {/* bottom card section  */}
-      <div className="ml-20 mt-10 border border-grey-800">
+      <div className="mx-auto mt-10 border border-grey-800 max-w-full px-4 sm:px-8 md:px-8 lg:px-10">
       
         {/* messages will come here  */}
         <Card>
@@ -149,7 +175,7 @@ export default function SendMessage() {
             {error.message}
             </p>): (
               parseStringMessages(completion).map((msg,index)=> (
-                <Button onClick={()=> handleMessageClick(msg)} key={index} variant={"outline"} className="mb-2 bg-[#EEEDFF]">{msg}</Button>
+                <Button onClick={()=> handleMessageClick(msg)} key={index} variant={"outline"} className="mb-2 bg-[#EEEDFF] text-center w-full ">{msg}</Button>
               ))
             )}
           </CardContent>

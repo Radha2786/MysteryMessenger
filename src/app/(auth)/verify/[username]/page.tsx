@@ -42,7 +42,7 @@ export default function VerifyAccount() {
       router.replace('/sign-in');
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      console.log("AxiosError inside signup is", axiosError);
+      // console.log("AxiosError inside signup is", axiosError);
       let errorMessage =
         axiosError.response?.data.message || "Error verifying account";
       toast({

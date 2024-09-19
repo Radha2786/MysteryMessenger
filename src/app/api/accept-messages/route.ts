@@ -50,8 +50,8 @@ export async function GET(request:Request){
         if(!founduser){
             return Response.json({success:false, message:"User not found"}, {status:404});
         }
-        console.log("found user is", founduser);
-        console.log("foundUser is accepting msgs", founduser.isAcceptingMessages);
+        // console.log("found user is", founduser);
+        // console.log("foundUser is accepting msgs", founduser.isAcceptingMessages);
         return Response.json({success:true, message: "Message acceptance status retrieved successfully", isAcceptingMessages: founduser.isAcceptingMessages}, {status:200});
 
     } catch(error){

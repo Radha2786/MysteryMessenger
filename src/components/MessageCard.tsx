@@ -58,13 +58,13 @@ function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   };
 
   return (
-    <Card className="lg:w-[450px] bg-[#EEEDFF] w-[250px]">
+    <Card className="lg:w-[450px] bg-[#EEEDFF] w-[250px] ">
       <CardHeader>
-        <div className="flex justify-between items-center">
-        <CardTitle >{message.content}</CardTitle>
+        <div className="flex justify-between items-center mt-[1.5rem]">
+        <CardTitle className="text-sm break-words whitespace-break-spaces w-full" >{message.content}</CardTitle>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive">
+            <Button className="absolute top-[2px] right-[2px]" variant="destructive">
               <X className="w-5 h-5" />
             </Button>
           </AlertDialogTrigger>

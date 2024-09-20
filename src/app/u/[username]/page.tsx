@@ -132,7 +132,7 @@ export default function SendMessage() {
         <div className="flex items-center">
           <input
             type="text"
-            placeholder="write your anonymous message here"
+            placeholder="write your message"
             className="input input-bordered w-full lg:p-5 mr-2 border border-grey-500 bg-[#EEEDFF] p-[1.2rem]"
             onChange={handleInputChange}
             value={message}

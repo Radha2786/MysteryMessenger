@@ -133,7 +133,7 @@ export default function SendMessage() {
           <input
             type="text"
             placeholder="write your anonymous message here"
-            className="input input-bordered w-full p-5 mr-2 border border-grey-500 bg-[#EEEDFF]"
+            className="input input-bordered w-full lg:p-5 mr-2 border border-grey-500 bg-[#EEEDFF] p-[1.2rem]"
             onChange={handleInputChange}
             value={message}
 
@@ -163,25 +163,33 @@ export default function SendMessage() {
         </h2>{" "}
       </div>
       {/* bottom card section  */}
-      <div className="mx-auto mt-10 border border-grey-800 max-w-full px-4 sm:px-8 md:px-8 lg:px-10">
-      
-        {/* messages will come here  */}
-        <Card>
-          <CardHeader>
-            <h3 className="text-xl font-semibold text-center">Messages</h3>
-          </CardHeader>
-          <CardContent  className="flex flex-col space-y-4">
-            {error? (<p className="text-blue-500">
-            {error.message}
-            </p>): (
-              parseStringMessages(completion).map((msg,index)=> (
-                <Button onClick={()=> handleMessageClick(msg)} key={index} variant={"outline"} className="mb-2 bg-[#EEEDFF] text-center w-full ">{msg}</Button>
-              ))
-            )}
-          </CardContent>
-        </Card>
 
-      </div>
+      <div className="mx-auto mt-10 border border-grey-800 max-w-full px-4 sm:px-8 md:px-8 lg:px-10">
+  {/* messages will come here */}
+  <Card>
+    <CardHeader>
+      <h3 className="text-xl font-semibold text-center">Messages</h3>
+    </CardHeader>
+    <CardContent className="flex flex-col space-y-4">
+      {error ? (
+        <p className="text-blue-500">{error.message}</p>
+      ) : (
+        parseStringMessages(completion).map((msg, index) => (
+          <Button
+            onClick={() => handleMessageClick(msg)}
+            key={index}
+            variant={"outline"}
+            className="mb-2 bg-[#EEEDFF] text-center w-full sm:max-w-full text-xs sm:text-sm break-words whitespace-break-spaces"
+          >
+            {msg}
+          </Button>
+        ))
+      )}
+    </CardContent>
+  </Card>
+</div>
+
+
     </div>
   );
 }
